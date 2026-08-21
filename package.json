@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "tokens:build": "node style-dictionary/build.mts",
+    "predev": "npm run tokens:build",
     "dev": "next dev --turbopack",
+    "prebuild": "npm run tokens:build",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
@@ -16,11 +19,13 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@tokens-studio/sd-transforms": "^2.0.3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.12",
+    "style-dictionary": "^5.5.2",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
