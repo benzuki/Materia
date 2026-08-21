@@ -71,6 +71,7 @@
   --token-size-responsive-grid-margin-m: 16px;
   --token-size-responsive-grid-margin-l: 16px;
   --token-size-responsive-grid-margin-xl: 16px;
+  --token-size-icon-xs: 12px;
   --token-size-icon-s: 16px;
   --token-size-icon-m: 20px;
   --token-size-icon-l: 24px;
@@ -393,6 +394,7 @@
   --spacing-responsive-grid-margin-m: var(--token-size-responsive-grid-margin-m);
   --spacing-responsive-grid-margin-l: var(--token-size-responsive-grid-margin-l);
   --spacing-responsive-grid-margin-xl: var(--token-size-responsive-grid-margin-xl);
+  --spacing-icon-xs: var(--token-size-icon-xs);
   --spacing-icon-s: var(--token-size-icon-s);
   --spacing-icon-m: var(--token-size-icon-m);
   --spacing-icon-l: var(--token-size-icon-l);
