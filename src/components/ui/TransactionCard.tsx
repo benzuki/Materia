@@ -1,5 +1,5 @@
 import { IconBadge, type IconBadgeVariant } from './IconBadge';
-import { formatTransactionDate } from '@/lib/format';
+import { formatTransactionDate, formatTransactionTime } from '@/lib/format';
 
 const interactionClasses =
   'cursor-pointer transition-colors duration-interaction ease-interaction motion-reduce:transition-none';
@@ -41,6 +41,8 @@ export interface TransactionCardProps {
   merchant: string;
   amount: string;
   date?: Date;
+  /** Bank feed detail line — shown instead of `date` when set. */
+  time?: Date;
   tone?: TransactionTone;
   recurring?: boolean;
   account?: TransactionAccount;
@@ -53,15 +55,20 @@ export function TransactionCard({
   merchant,
   amount,
   date,
+  time,
   tone = 'primary',
   recurring = false,
   account,
   expanded = true,
   className = '',
 }: TransactionCardProps) {
-  const showDetail = expanded && Boolean(date || recurring || account);
+  const showDetail = expanded && Boolean(date || time || recurring || account);
   const { surface, frame } = toneClasses[tone];
-  const formattedDate = date ? formatTransactionDate(date) : undefined;
+  const detailLabel = time
+    ? formatTransactionTime(time)
+    : date
+      ? formatTransactionDate(date)
+      : undefined;
 
   return (
     <div
@@ -76,12 +83,12 @@ export function TransactionCard({
 
       {showDetail && (
         <div className="flex w-full min-w-0 items-center justify-between gap-inline-xxs">
-          {formattedDate ? (
+          {detailLabel ? (
             <p
               className="min-w-0 flex-1 truncate text-xs leading-xs font-normal text-text-text-secondary"
-              title={formattedDate}
+              title={detailLabel}
             >
-              {formattedDate}
+              {detailLabel}
             </p>
           ) : (
             <span className="min-w-0 flex-1" aria-hidden="true" />

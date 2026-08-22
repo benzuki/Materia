@@ -12,6 +12,7 @@ export const categories = {
   'dining-out': '🍽️',
   takeaway: '🥡',
   museum: '🏛️',
+  arts: '🏛️',
   books: '📚',
   gifts: '🎁',
   repairs: '🛠️',

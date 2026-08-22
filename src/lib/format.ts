@@ -6,3 +6,15 @@ export function formatTransactionDate(date: Date): string {
 
   return `${weekday} ${day} ${month}`;
 }
+
+/** Bank feed times — e.g. "3:43pm". */
+export function formatTransactionTime(date: Date): string {
+  return new Intl.DateTimeFormat('en-GB', {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+  })
+    .format(date)
+    .toLowerCase()
+    .replace(/\s/g, '');
+}
