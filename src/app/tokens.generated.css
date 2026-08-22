@@ -195,6 +195,11 @@
   --token-colour-surface-selectable-neutral-200-background-active: #dad8d6;
   --token-colour-surface-selectable-neutral-200-background-selected: #e7dfd8;
   --token-colour-surface-selectable-neutral-200-background-selected-hover: #dad8d6;
+  --token-colour-surface-selectable-disabled-background: #faf9fa;
+  --token-colour-surface-selectable-disabled-background-hover: #faf9fa;
+  --token-colour-surface-selectable-disabled-background-active: #faf9fa;
+  --token-colour-surface-selectable-disabled-background-selected: #faf9fa;
+  --token-colour-surface-selectable-disabled-background-selected-hover: #faf9fa;
   --token-colour-surface-draggable-green-100-background: #f5fbf5;
   --token-colour-surface-draggable-green-100-background-hover: #e9f6e9;
   --token-colour-surface-draggable-green-100-background-active: #c9e8ca;
@@ -241,6 +246,7 @@
   --token-colour-border-orange: #ffc182;
   --token-colour-border-amber: #f3d673;
   --token-colour-border-indigo: #c1d0ff;
+  --token-colour-border-disabled: #dcd8db;
   --token-colour-text-text-primary: #21201f;
   --token-colour-text-text-secondary: #676360;
   --token-colour-text-text-on-colour: #ffffff;
@@ -252,6 +258,7 @@
   --token-colour-text-text-indigo: #3e63dd;
   --token-colour-text-text-success: #30a46c;
   --token-colour-text-text-error: #e5484d;
+  --token-colour-text-text-disabled: #c0b9be;
   --token-colour-icon-icon-primary: #21201f;
   --token-colour-icon-icon-secondary: #676360;
   --token-colour-icon-icon-on-colour: #ffffff;
@@ -263,6 +270,7 @@
   --token-colour-icon-indigo: #3e63dd;
   --token-colour-icon-icon-success: #30a46c;
   --token-colour-icon-icon-error: #e5484d;
+  --token-colour-icon-icon-disabled: #c0b9be;
   --token-colour-component-progress-bar-primary-background: #ede5dd;
   --token-colour-component-progress-bar-primary-foreground: #c0a689;
   --token-colour-component-progress-bar-primary-accent: #76624d;
@@ -319,6 +327,11 @@
   --token-colour-surface-selectable-neutral-200-background-active: #464341;
   --token-colour-surface-selectable-neutral-200-background-selected: #3d3b39;
   --token-colour-surface-selectable-neutral-200-background-selected-hover: #464341;
+  --token-colour-surface-selectable-disabled-background: #1a191a;
+  --token-colour-surface-selectable-disabled-background-hover: #1a191a;
+  --token-colour-surface-selectable-disabled-background-active: #1a191a;
+  --token-colour-surface-selectable-disabled-background-selected: #1a191a;
+  --token-colour-surface-selectable-disabled-background-selected-hover: #1a191a;
   --token-colour-surface-draggable-green-100-background: #141a15;
   --token-colour-surface-draggable-green-100-background-hover: #1b2a1e;
   --token-colour-surface-draggable-green-100-background-active: #25482d;
@@ -364,14 +377,17 @@
   --token-colour-border-orange: #66350c;
   --token-colour-border-amber: #5c3d05;
   --token-colour-border-indigo: #304384;
+  --token-colour-border-disabled: #3d393c;
   --token-colour-text-text-primary: #efedec;
   --token-colour-text-text-secondary: #b9b4b0;
   --token-colour-text-text-helper: #837d78;
   --token-colour-text-text-brand: #cdb396;
+  --token-colour-text-text-disabled: #655f63;
   --token-colour-icon-icon-primary: #efedec;
   --token-colour-icon-icon-secondary: #b9b4b0;
   --token-colour-icon-icon-helper: #837d78;
   --token-colour-icon-icon-brand: #cdb396;
+  --token-colour-icon-icon-disabled: #655f63;
   --token-colour-component-progress-bar-primary-background: #3b352e;
   --token-colour-component-progress-bar-primary-accent: #cdb396;
   --token-colour-component-progress-bar-green-background: #1d3a24;
@@ -555,6 +571,11 @@
   --color-surface-selectable-neutral-200-background-active: var(--token-colour-surface-selectable-neutral-200-background-active);
   --color-surface-selectable-neutral-200-background-selected: var(--token-colour-surface-selectable-neutral-200-background-selected);
   --color-surface-selectable-neutral-200-background-selected-hover: var(--token-colour-surface-selectable-neutral-200-background-selected-hover);
+  --color-surface-selectable-disabled-background: var(--token-colour-surface-selectable-disabled-background);
+  --color-surface-selectable-disabled-background-hover: var(--token-colour-surface-selectable-disabled-background-hover);
+  --color-surface-selectable-disabled-background-active: var(--token-colour-surface-selectable-disabled-background-active);
+  --color-surface-selectable-disabled-background-selected: var(--token-colour-surface-selectable-disabled-background-selected);
+  --color-surface-selectable-disabled-background-selected-hover: var(--token-colour-surface-selectable-disabled-background-selected-hover);
   --color-surface-draggable-green-100-background: var(--token-colour-surface-draggable-green-100-background);
   --color-surface-draggable-green-100-background-hover: var(--token-colour-surface-draggable-green-100-background-hover);
   --color-surface-draggable-green-100-background-active: var(--token-colour-surface-draggable-green-100-background-active);
@@ -601,6 +622,7 @@
   --color-border-orange: var(--token-colour-border-orange);
   --color-border-amber: var(--token-colour-border-amber);
   --color-border-indigo: var(--token-colour-border-indigo);
+  --color-border-disabled: var(--token-colour-border-disabled);
   --color-text-text-primary: var(--token-colour-text-text-primary);
   --color-text-text-secondary: var(--token-colour-text-text-secondary);
   --color-text-text-on-colour: var(--token-colour-text-text-on-colour);
@@ -612,6 +634,7 @@
   --color-text-text-indigo: var(--token-colour-text-text-indigo);
   --color-text-text-success: var(--token-colour-text-text-success);
   --color-text-text-error: var(--token-colour-text-text-error);
+  --color-text-text-disabled: var(--token-colour-text-text-disabled);
   --color-icon-icon-primary: var(--token-colour-icon-icon-primary);
   --color-icon-icon-secondary: var(--token-colour-icon-icon-secondary);
   --color-icon-icon-on-colour: var(--token-colour-icon-icon-on-colour);
@@ -623,6 +646,7 @@
   --color-icon-indigo: var(--token-colour-icon-indigo);
   --color-icon-icon-success: var(--token-colour-icon-icon-success);
   --color-icon-icon-error: var(--token-colour-icon-icon-error);
+  --color-icon-icon-disabled: var(--token-colour-icon-icon-disabled);
   --color-component-progress-bar-primary-background: var(--token-colour-component-progress-bar-primary-background);
   --color-component-progress-bar-primary-foreground: var(--token-colour-component-progress-bar-primary-foreground);
   --color-component-progress-bar-primary-accent: var(--token-colour-component-progress-bar-primary-accent);
