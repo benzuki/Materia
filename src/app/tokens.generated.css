@@ -115,6 +115,8 @@
   --token-space-inline-m: 32px;
   --token-space-inline-l: 64px;
   --token-space-inline-xl: 128px;
+  --token-duration-interaction: 150ms;
+  --token-easing-interaction: cubic-bezier(0.2, 0, 0, 1);
   --token-border-radius-scale: 1px;
   --token-border-radius-container-none: 0px;
   --token-border-radius-container-s: 8px;
@@ -478,6 +480,8 @@
   --spacing-inline-m: var(--token-space-inline-m);
   --spacing-inline-l: var(--token-space-inline-l);
   --spacing-inline-xl: var(--token-space-inline-xl);
+  --duration-interaction: var(--token-duration-interaction);
+  --ease-interaction: var(--token-easing-interaction);
   --radius-scale: var(--token-border-radius-scale);
   --radius-container-none: var(--token-border-radius-container-none);
   --radius-container-s: var(--token-border-radius-container-s);

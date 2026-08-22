@@ -1,11 +1,35 @@
 import { IconBadge, type IconBadgeVariant } from './IconBadge';
+import { formatTransactionDate } from '@/lib/format';
+
+const interactionClasses =
+  'cursor-pointer transition-colors duration-interaction ease-interaction motion-reduce:transition-none';
 
 const toneClasses = {
-  primary: 'border-border-subtle shadow-primary-s',
-  green: 'border-border-green shadow-green-s',
-  orange: 'border-border-orange shadow-orange-s',
-  amber: 'border-border-amber shadow-amber-s',
-  indigo: 'border-border-indigo shadow-indigo-s',
+  primary: {
+    surface:
+      'bg-surface-container-white-background hover:bg-surface-container-white-background-hover active:bg-surface-container-white-background-selected',
+    frame: 'border-border-subtle shadow-primary-s',
+  },
+  green: {
+    surface:
+      'bg-surface-draggable-green-50-background hover:bg-surface-draggable-green-50-background-hover active:bg-surface-draggable-green-50-background-selected',
+    frame: 'border-border-green shadow-green-s',
+  },
+  orange: {
+    surface:
+      'bg-surface-draggable-orange-50-background hover:bg-surface-draggable-orange-50-background-hover active:bg-surface-draggable-orange-50-background-selected',
+    frame: 'border-border-orange shadow-orange-s',
+  },
+  amber: {
+    surface:
+      'bg-surface-draggable-amber-50-background hover:bg-surface-draggable-amber-50-background-hover active:bg-surface-draggable-amber-50-background-selected',
+    frame: 'border-border-amber shadow-amber-s',
+  },
+  indigo: {
+    surface:
+      'bg-surface-draggable-indigo-50-background hover:bg-surface-draggable-indigo-50-background-hover active:bg-surface-draggable-indigo-50-background-selected',
+    frame: 'border-border-indigo shadow-indigo-s',
+  },
 } as const;
 
 export type TransactionTone = keyof typeof toneClasses;
@@ -16,7 +40,7 @@ export type TransactionAccount = Exclude<IconBadgeVariant, 'recurring'>;
 export interface TransactionCardProps {
   merchant: string;
   amount: string;
-  date?: string;
+  date?: Date;
   tone?: TransactionTone;
   recurring?: boolean;
   account?: TransactionAccount;
@@ -36,12 +60,14 @@ export function TransactionCard({
   className = '',
 }: TransactionCardProps) {
   const showDetail = expanded && Boolean(date || recurring || account);
+  const { surface, frame } = toneClasses[tone];
+  const formattedDate = date ? formatTransactionDate(date) : undefined;
 
   return (
     <div
-      className={`flex w-full flex-col gap-stack-xxs rounded-container-s border-[length:var(--token-border-width-selectable-s)] border-dashed bg-surface-container-white-background p-inset-xs ${toneClasses[tone]} ${className}`}
+      className={`flex w-full min-w-0 flex-col gap-stack-xxs rounded-container-s border-[length:var(--token-border-width-selectable-s)] border-dashed p-inset-xs ${interactionClasses} ${surface} ${frame} ${className}`}
     >
-      <div className="flex items-center justify-between gap-inline-xxs text-s leading-s font-medium">
+      <div className="flex w-full min-w-0 items-center justify-between gap-inline-xxs text-s leading-s font-medium">
         <p className="min-w-0 flex-1 truncate text-text-text-primary" title={merchant}>
           {merchant}
         </p>
@@ -49,10 +75,17 @@ export function TransactionCard({
       </div>
 
       {showDetail && (
-        <div className="flex items-center justify-between gap-inline-xxs">
-          <p className="min-w-0 flex-1 truncate text-xs leading-xs font-normal text-text-text-secondary">
-            {date}
-          </p>
+        <div className="flex w-full min-w-0 items-center justify-between gap-inline-xxs">
+          {formattedDate ? (
+            <p
+              className="min-w-0 flex-1 truncate text-xs leading-xs font-normal text-text-text-secondary"
+              title={formattedDate}
+            >
+              {formattedDate}
+            </p>
+          ) : (
+            <span className="min-w-0 flex-1" aria-hidden="true" />
+          )}
           <div className="flex shrink-0 items-center gap-inline-xxs">
             {recurring && <IconBadge variant="recurring" size="small" />}
             {account && <IconBadge variant={account} size="small" />}

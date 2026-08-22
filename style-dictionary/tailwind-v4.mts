@@ -83,6 +83,8 @@ export const DEFAULT_CONFIG: PluginConfig = {
     'line-height': 'leading',
     'font-family': 'font',
     'font-weight': 'font-weight',
+    duration: 'duration',
+    easing: 'ease',
   },
   outputOptions: {
     showComments: true,

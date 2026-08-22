@@ -79,7 +79,7 @@ A list of tips, improvements and best practices that quickly make your interface
 - Capitalize buttons, headings and labels **the same way everywhere**. Sentence case is the safer default.
 - Label toggles with **the state they turn on**: "Send read receipts", never "Disable read receipts".
 - **Orient the reader** in empty states and offer one next action instead of "No results".
-- Address the reader as **"you"**, not "the user".
+- **Transaction dates** use `{weekday} {dd} {mmm}` — e.g. "Tue 04 Nov". Format with `formatTransactionDate()` from `src/lib/format.ts`; never hand-write date strings in components.
 
 ---
 

@@ -34,6 +34,25 @@ The generated stylesheet has two layers. Raw values are custom properties under 
 
 Hard rule: components reference the theme layer only. Never reach into `core` or `alias` directly from a component, and never hardcode a raw color, spacing, radius, or shadow value where a token already exists for it.
 
+## Figma implementation
+
+When building from a Figma URL, follow this order every time:
+
+1. **`get_design_context`** on the exact node, then **`get_screenshot`** for visual reference. Do not implement from memory or guesswork.
+2. **Map every visual property to an existing theme token** before writing JSX. Progress bars use `component/progress-bar/{tone}/background|foreground|accent`; surfaces use `surface/*`; type uses the atomic scale (`text-s`, `leading-s`, etc.) or the composite `--token-typography-*` custom property when all four properties must stay in sync.
+3. **Do not approximate Figma assets with CSS stand-ins** — no `border-dashed` ticks, no `repeating-linear-gradient` chequers, no ad-hoc box-shadows. If Figma exports a pattern, tick, or icon, **download it** (Figma MCP asset URL or export from the file) into `public/icons/` or `public/patterns/`, then reference it. Tint monochrome SVGs with a CSS mask and the matching semantic colour token (see `IconBadge` recurring glyph), or render inline SVG shapes with `text-{token}` on the root and `fill="currentColor"` on paths — **never** `fill="var(--color-…)"`; `@theme inline` colour variables are not guaranteed to resolve inside SVG presentation attributes.
+4. **If a token or asset is missing**, stop and tell the user. Do not invent a substitute inline. Add the token in Token Studio / Figma first, or commit the exported asset, then wire the component.
+5. **Match Figma structure literally** for sub-components that already exist in the file (`PaceTickMark`, `OverflowPattern`, etc.) — same variants, same dimensions, same opacity. Convert Tailwind from MCP output to this project's token utilities; do not drop nested components in favour of a single simplified element.
+6. **Verify in light and dark** before marking done. Generated assets that hard-code light hex values must use `currentColor` + token-driven fill/mask so `[data-theme="dark"]` resolves correctly.
+
+Asset locations in this repo:
+
+| Figma component | Path |
+|---|---|
+| Progress overflow chequer | `public/patterns/progress-overflow-{tone}.png` |
+| Progress pace / cap tick | `public/patterns/progress-tick/{solid\|dashed}.svg` |
+| Bank / recurring marks | `public/icons/` |
+
 ## Theming
 
 Users get an explicit light/dark/system toggle, so switching can't run on `prefers-color-scheme` alone, that's read-only, nothing for a toggle to flip. Mechanism: `next-themes`, `attribute="data-theme"`, `defaultTheme="system"`. It sets `data-theme="dark"` on `<html>` and persists the user's explicit choice once they override the system default.
