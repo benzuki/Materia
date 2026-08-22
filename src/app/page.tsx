@@ -1,4 +1,9 @@
 import {
+  ProgressHeader,
+  progressHeaderPresets,
+  progressHeaderVariants,
+} from '@/components/ui/ProgressHeader';
+import {
   ProgressBar,
   progressBarPresetIds,
   progressBarPresetLabels,
@@ -93,6 +98,12 @@ export default function Home() {
             <IconBadge key={variant} variant={variant} size="small" />
           ))}
         </div>
+      </div>
+
+      <div className="grid w-full min-w-0 grid-cols-1 gap-stack-s sm:grid-cols-2 lg:grid-cols-4">
+        {progressHeaderVariants.map((variant) => (
+          <ProgressHeader key={variant} {...progressHeaderPresets[variant]} />
+        ))}
       </div>
 
       <div className="flex w-full min-w-0 flex-col gap-stack-s">
