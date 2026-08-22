@@ -32,7 +32,7 @@ Three layers, don't blur them:
 
 The generated stylesheet has two layers. Raw values are custom properties under `--token-*`, themed by selector. `@theme inline` then maps Tailwind's namespaces onto them — `base.colour.*` to `--color-*`, `space` and `size` to `--spacing-*`, `border-radius` to `--radius-*`, `box-shadow` to `--shadow-*`, `font-size` to `--text-*`, `line-height` to `--leading-*`, `font-family` to `--font-*`, `font-weight` to `--font-weight-*`. `inline` is what makes the mapping theme-aware: without it Tailwind would bake the light value into every utility. Token groups with no Tailwind namespace (`typography`, `border-width`, `paragraph-spacing`) still get a `--token-*` property, just no utility. The `core` set and the `light`/`dark`/`foundations` colour ramps in `alias` are deliberately not emitted — they are primitives, and the theme layer is the only sanctioned surface for components.
 
-Hard rule: components reference the theme layer only. Never reach into `core` or `alias` directly from a component, and never hardcode a raw color, spacing, radius, or shadow value where a token already exists for it.
+Hard rule: components reference the theme layer only. Never reach into `core` or `alias` directly from a component, and never hardcode a raw color, spacing, radius, shadow, **duration, or easing** value where a token already exists for it.
 
 ## Figma implementation
 
@@ -73,12 +73,29 @@ That line is framework wiring, not token data. It's written once, by hand, and t
 
 `motion.md` is the second house reference, applied as a deliberate follow-up pass once a component or screen's static layout is settled, not baked in during the first draft. It complements the Animation section in `interface-cheat-sheet.md` rather than replacing it; where the two overlap (button-press scale, transition timing) they agree.
 
-- Prefer `transform` and `opacity` only. Never animate layout properties like `top`, `left`, `width`, `height`.
-- One motion language per screen — don't mix easings, durations, or physics within the same view.
-- Default UI transitions run 140–220ms. Page-level reveals can be slower but must never block reading.
-- Every automatic or scroll-linked animation needs a `prefers-reduced-motion` fallback.
+### Tokenised timing and easing
+
+All motion uses tokens from `alias.base.duration` and `alias.base.easing` in `tokens.json`. Style Dictionary emits them as `--token-duration-*` / `--token-easing-*` custom properties and Tailwind utilities (`duration-*`, `ease-*`). Never hand-code milliseconds or `cubic-bezier(...)` in components when a motion token exists.
+
+Default for hover, pressed, drag, drop, and other UI micro-interactions on a screen:
+
+| Token | Tailwind | CSS custom property | Value |
+|---|---|---|---|
+| `duration.interaction` | `duration-interaction` | `var(--token-duration-interaction)` | 150ms |
+| `easing.interaction` | `ease-interaction` | `var(--ease-interaction)` | `cubic-bezier(0.2, 0, 0, 1)` |
+
+- **Tailwind transitions:** `duration-interaction ease-interaction` — not `duration-150`, `duration-[220ms]`, `ease-out`, or Tailwind's generic `ease-in-out`.
+- **Inline styles, CSS, Framer Motion:** `var(--token-duration-interaction)` and `var(--ease-interaction)` (equivalent to `var(--token-easing-interaction)`).
+- **One motion language per screen** — don't mix interaction tokens with ad-hoc timings or curves on the same view.
+- **Missing token:** if a screen genuinely needs a different duration or easing, add it in Token Studio / Figma first, regenerate tokens, then wire the new utility. Do not invent values inline.
+- **Reduced motion:** every automatic transition needs a `prefers-reduced-motion` fallback (e.g. `motion-reduce:transition-none`).
+
+### Motion rules
+
+- Prefer `transform` and `opacity` only. Never animate layout properties like `top`, `left`, `width`, `height` — except drag overlays portaled to `document.body`, where `left` / `top` may transition but must still use the interaction duration and easing tokens.
+- Page-level reveals can be slower than interaction but must use a named duration/easing token, not a literal.
 - Stagger small groups only, no decorative loops that don't communicate status or progress.
-- Implementation: Framer Motion, already in the stack, for all React motion. Don't reach for GSAP, it isn't part of the current stack, unless a genuinely complex sequencing need comes up and you've deliberately decided to add it.
+- Implementation: Framer Motion, already in the stack, for React motion that can't be expressed as a CSS transition. Pass token values into Framer (`duration` in seconds derived from the token, `ease` from `var(--ease-interaction)` or the resolved cubic-bezier array). Don't reach for GSAP unless a genuinely complex sequencing need comes up and you've deliberately decided to add it.
 - Clean up every observer, timer, and animation instance.
 
 ## Working style
